@@ -1,16 +1,27 @@
-version: '3.8'
-
 services:
+  auth-service:
+    build: ./auth-service
+    environment:
+      CONFIG_PATH: "/app/config/dev.yml"
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
   db:
     image: postgres:15
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: eduhub
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-
+    healthcheck:  # Проверка готовности PostgreSQL
+      test: ["CMD-SHELL", "pg_isready -U admin -d postgres"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
 volumes:
   pgdata:
