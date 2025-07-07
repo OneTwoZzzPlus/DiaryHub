@@ -33,3 +33,7 @@ func New(connStr string) (*Storage, error) {
 
 	return &Storage{db: db}, nil
 }
+
+func (strg Storage) Close() {
+	strg.db.Close()
+}
