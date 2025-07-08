@@ -1,7 +1,7 @@
 package storageapp
 
 import (
-	"diaryhub/auth-service/internal/storage/postgresql"
+	"diaryhub/sso-service/internal/storage/postgresql"
 	"fmt"
 
 	"log/slog"

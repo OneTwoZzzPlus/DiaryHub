@@ -2,7 +2,7 @@ package auth
 
 import (
 	"context"
-	authv1 "diaryhub/auth-service/protos/gen/go/auth"
+	authv1 "diaryhub/sso-service/protos/gen/go/auth"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"

@@ -1,4 +1,4 @@
-module diaryhub/auth-service
+module diaryhub/sso-service
 
 go 1.24.4
 

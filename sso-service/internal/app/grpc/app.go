@@ -1,8 +1,8 @@
 package grpcapp
 
 import (
-	authgrpc "diaryhub/auth-service/internal/grpc/auth"
-	authservice "diaryhub/auth-service/internal/services/auth"
+	authgrpc "diaryhub/sso-service/internal/grpc/auth"
+	authservice "diaryhub/sso-service/internal/services/auth"
 	"fmt"
 	"log/slog"
 	"net"

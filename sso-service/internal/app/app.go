@@ -1,9 +1,9 @@
 package app
 
 import (
-	grpcapp "diaryhub/auth-service/internal/app/grpc"
-	storageapp "diaryhub/auth-service/internal/app/storage"
-	authservice "diaryhub/auth-service/internal/services/auth"
+	grpcapp "diaryhub/sso-service/internal/app/grpc"
+	storageapp "diaryhub/sso-service/internal/app/storage"
+	authservice "diaryhub/sso-service/internal/services/auth"
 	"log/slog"
 	"time"
 )

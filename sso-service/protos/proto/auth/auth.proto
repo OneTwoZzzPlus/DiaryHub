@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package auth;
 
-option go_package = "diaryhub.auth-service.v1;authv1";
+option go_package = "diaryhub.sso-service.v1;ssov1";
 
 service Auth {
     rpc Register (RegisterRequest) returns (RegisterResponse);

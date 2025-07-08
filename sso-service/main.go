@@ -1,8 +1,8 @@
 package main
 
 import (
-	"diaryhub/auth-service/internal/app"
-	"diaryhub/auth-service/internal/config"
+	"diaryhub/sso-service/internal/app"
+	"diaryhub/sso-service/internal/config"
 	"log/slog"
 	"os"
 	"os/signal"
@@ -15,7 +15,7 @@ func main() {
 	cfg := config.MustLoad()
 
 	log := setupLogger(cfg.Env)
-	log.Info("Starting auth-service", slog.String("env", cfg.Env))
+	log.Info("Starting sso-service", slog.String("env", cfg.Env))
 	log.Debug("Debug messages enabled")
 
 	application := app.New(log, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTTL)
@@ -27,11 +27,11 @@ func main() {
 	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)
 
 	sign := <-stop
-	log.Info("STOPPING auth-service", slog.Any("signal", sign))
+	log.Info("STOPPING sso-service", slog.Any("signal", sign))
 
 	application.GRPCApp.Stop()
 	application.StorageApp.Stop()
-	log.Info("auth-service stopped")
+	log.Info("sso-service stopped")
 }
 
 const (

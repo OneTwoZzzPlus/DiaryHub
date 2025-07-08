@@ -2,8 +2,8 @@ package auth
 
 import (
 	"context"
-	"diaryhub/auth-service/internal/domain/models"
-	"diaryhub/auth-service/internal/storage"
+	"diaryhub/sso-service/internal/domain/models"
+	"diaryhub/sso-service/internal/storage"
 	"errors"
 	"fmt"
 	"log/slog"

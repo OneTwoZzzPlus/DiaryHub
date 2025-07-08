@@ -1,6 +1,6 @@
 services:
-  auth-service:
-    build: ./auth-service
+  sso-service:
+    build: ./sso-service
     environment:
       CONFIG_PATH: "/app/config/dev.yml"
     ports:

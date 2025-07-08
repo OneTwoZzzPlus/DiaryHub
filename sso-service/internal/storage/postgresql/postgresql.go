@@ -3,7 +3,7 @@ package postgresql
 import (
 	"context"
 	"database/sql"
-	"diaryhub/auth-service/internal/domain/models"
+	"diaryhub/sso-service/internal/domain/models"
 	"fmt"
 
 	_ "github.com/lib/pq"
