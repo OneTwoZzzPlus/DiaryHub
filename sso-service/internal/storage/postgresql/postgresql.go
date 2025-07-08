@@ -68,12 +68,12 @@ func (s *Storage) SaveUser(ctx context.Context, email string, passHash []byte) (
 	if err != nil {
 		return 0, fmt.Errorf("%s: %w", op, err)
 	}
-
 	defer stmt.Close()
 
+	row := stmt.QueryRowContext(ctx, email, passHash)
+
 	var userid int64
-	err = stmt.QueryRowContext(ctx, email, passHash).Scan(&userid)
-	if err != nil {
+	if err := row.Scan(&userid); err != nil {
 		var pqErr *pq.Error
 		if errors.As(err, &pqErr) && pqErr.Code == "23505" { // email is not UNIQUE
 			return 0, fmt.Errorf("%s: %w", op, storage.ErrUserExists)
@@ -81,19 +81,71 @@ func (s *Storage) SaveUser(ctx context.Context, email string, passHash []byte) (
 		return 0, fmt.Errorf("%s: %w", op, err)
 	}
 
-	fmt.Println("SaveUser sand Query")
-
 	return userid, nil
 }
 
 func (s *Storage) User(ctx context.Context, email string) (models.User, error) {
-	return models.User{ID: 52, Email: "lol@lol.com", PassHash: []byte("##secret##")}, nil
+	const op = "storage.postgresql.User"
+
+	stmt, err := s.db.Prepare("SELECT id, email, pass_hash FROM users WHERE email = ?")
+	if err != nil {
+		return models.User{}, fmt.Errorf("%s: %w", op, err)
+	}
+	defer stmt.Close()
+
+	row := stmt.QueryRowContext(ctx, email)
+
+	var user models.User
+	if err := row.Scan(&user.ID, &user.Email, &user.PassHash); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return models.User{}, fmt.Errorf("%s: %w", op, storage.ErrUserNotFound)
+		}
+		return models.User{}, fmt.Errorf("%s: %w", op, err)
+	}
+
+	return user, nil
 }
 
 func (s *Storage) IsAdmin(ctx context.Context, userID int64) (bool, error) {
-	return true, nil
+	const op = "storage.postgresql.IsAdmin"
+
+	stmt, err := s.db.Prepare("SELECT is_admin FROM users WHERE id = ?")
+	if err != nil {
+		return false, fmt.Errorf("%s: %w", op, err)
+	}
+	defer stmt.Close()
+
+	row := stmt.QueryRowContext(ctx, userID)
+
+	var isAdmin bool
+	if err := row.Scan(&isAdmin); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return false, fmt.Errorf("%s: %w", op, storage.ErrUserNotFound)
+		}
+		return false, fmt.Errorf("%s: %w", op, err)
+	}
+
+	return isAdmin, nil
 }
 
 func (s *Storage) App(ctx context.Context, appID int) (models.App, error) {
-	return models.App{ID: 35, Name: "BASE APP", Secret: "##secret##"}, nil
+	const op = "storage.postgresql.App"
+
+	stmt, err := s.db.Prepare("SELECT id, name, secret FROM apps WHERE id = ?")
+	if err != nil {
+		return models.App{}, fmt.Errorf("%s: %w", op, err)
+	}
+	defer stmt.Close()
+
+	row := stmt.QueryRowContext(ctx, appID)
+
+	var app models.App
+	if err := row.Scan(&app.ID, &app.Name, &app.Secret); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return models.App{}, fmt.Errorf("%s: %w", op, storage.ErrUserNotFound)
+		}
+		return models.App{}, fmt.Errorf("%s: %w", op, err)
+	}
+
+	return app, nil
 }
