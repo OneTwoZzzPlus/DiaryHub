@@ -2,6 +2,7 @@ package grpcapp
 
 import (
 	authgrpc "diaryhub/auth-service/internal/grpc/auth"
+	authservice "diaryhub/auth-service/internal/services/auth"
 	"fmt"
 	"log/slog"
 	"net"
@@ -15,10 +16,10 @@ type App struct {
 	port       int
 }
 
-func New(log *slog.Logger, port int) *App {
+func New(log *slog.Logger, port int, authService *authservice.Auth) *App {
 	gRPCServer := grpc.NewServer()
 
-	authgrpc.Register(gRPCServer)
+	authgrpc.Register(gRPCServer, authService)
 
 	return &App{
 		log:        log,

@@ -1,7 +1,9 @@
 package postgresql
 
 import (
+	"context"
 	"database/sql"
+	"diaryhub/auth-service/internal/domain/models"
 	"fmt"
 
 	_ "github.com/lib/pq"
@@ -34,6 +36,22 @@ func New(connStr string) (*Storage, error) {
 	return &Storage{db: db}, nil
 }
 
-func (strg Storage) Close() {
+func (strg *Storage) Close() {
 	strg.db.Close()
+}
+
+func (strg *Storage) SaveUser(ctx context.Context, email string, passHash []byte) (int64, error) {
+	return 52, nil
+}
+
+func (strg *Storage) User(ctx context.Context, email string) (models.User, error) {
+	return models.User{ID: 52, Email: "lol@lol.com", PassHash: []byte("##secret##")}, nil
+}
+
+func (strg *Storage) IsAdmin(ctx context.Context, userID int64) (bool, error) {
+	return true, nil
+}
+
+func (strg *Storage) App(ctx context.Context, appID int) (models.App, error) {
+	return models.App{ID: 35, Name: "BASE APP", Secret: "##secret##"}, nil
 }

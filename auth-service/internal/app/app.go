@@ -3,6 +3,7 @@ package app
 import (
 	grpcapp "diaryhub/auth-service/internal/app/grpc"
 	storageapp "diaryhub/auth-service/internal/app/storage"
+	authservice "diaryhub/auth-service/internal/services/auth"
 	"log/slog"
 	"time"
 )
@@ -21,7 +22,15 @@ func New(
 
 	StorageApp := storageapp.New(log, storagePath)
 
-	GRPCApp := grpcapp.New(log, grpcPort)
+	AuthService := authservice.New(
+		log,
+		StorageApp.Storage,
+		StorageApp.Storage,
+		StorageApp.Storage,
+		tokenTTL,
+	)
+
+	GRPCApp := grpcapp.New(log, grpcPort, AuthService)
 
 	return &App{GRPCApp: GRPCApp, StorageApp: StorageApp}
 }
