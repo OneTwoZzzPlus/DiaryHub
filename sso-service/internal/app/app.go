@@ -20,7 +20,7 @@ func New(
 	tokenTTL time.Duration,
 ) *App {
 
-	StorageApp := storageapp.New(log, storagePath)
+	StorageApp := storageapp.MustConnect(log, storagePath)
 
 	AuthService := authservice.New(
 		log,
@@ -33,4 +33,9 @@ func New(
 	GRPCApp := grpcapp.New(log, grpcPort, AuthService)
 
 	return &App{GRPCApp: GRPCApp, StorageApp: StorageApp}
+}
+
+func (a *App) Stop() {
+	a.GRPCApp.Stop()
+	a.StorageApp.Disconnect()
 }

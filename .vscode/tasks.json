@@ -4,7 +4,7 @@
     {
       "label": "compose: build & up",
       "type": "shell",
-      "command": "docker compose build; docker compose up",
+      "command": "docker compose up --build",
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -28,7 +28,8 @@
       "presentation": {
         "reveal": "always",
         "panel": "new"
-      }
+      },
+      "problemMatcher": []
     },
     {
       "label": "run: sso-service",
@@ -43,7 +44,8 @@
       "presentation": {
         "reveal": "always",
         "panel": "new"
-      }
+      },
+      "problemMatcher": []
     },
     {
       "label": "generate: protobuf",

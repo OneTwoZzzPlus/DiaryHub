@@ -1,7 +1,7 @@
 # DiaryHub
 Учебный проект
 
-Сборка `docker compose build`
+Сборка и запуск `docker-compose up --build`
 
 Запуск `docker compose up`
 

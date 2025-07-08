@@ -13,31 +13,28 @@ type App struct {
 	Storage     *postgresql.Storage
 }
 
-func New(log *slog.Logger, storagePath string) *App {
-	return &App{log: log, storagePath: storagePath}
-}
-
-func (a *App) MustRun() {
-	if err := a.Run(); err != nil {
+func MustConnect(logger *slog.Logger, storagePath string) *App {
+	app, err := Connect(logger, storagePath)
+	if err != nil {
 		panic(err)
 	}
+	return app
 }
 
-func (a *App) Run() error {
+func Connect(logger *slog.Logger, storagePath string) (*App, error) {
 	const op = "app.storage.Connect"
-	log := a.log.With(slog.String("op", op))
+	log := logger.With(slog.String("op", op))
 
 	log.Info("Connecting to storage...")
-	strg, err := postgresql.New(a.storagePath)
+	strg, err := postgresql.New(storagePath)
 	if err != nil {
-		return fmt.Errorf("%s: %w", op, err)
+		return nil, fmt.Errorf("%s: %w", op, err)
 	}
 	log.Info("Storage connected")
-	a.Storage = strg
-	return nil
+	return &App{log: log, storagePath: storagePath, Storage: strg}, nil
 }
 
-func (a *App) Stop() {
+func (a *App) Disconnect() {
 	const op = "app.storage.Stop"
 	log := a.log.With(slog.String("op", op))
 

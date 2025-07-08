@@ -20,7 +20,6 @@ func main() {
 
 	application := app.New(log, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTTL)
 
-	application.StorageApp.MustRun()
 	go application.GRPCApp.MustRun()
 
 	stop := make(chan os.Signal, 1)
@@ -28,9 +27,7 @@ func main() {
 
 	sign := <-stop
 	log.Info("STOPPING sso-service", slog.Any("signal", sign))
-
-	application.GRPCApp.Stop()
-	application.StorageApp.Stop()
+	application.Stop()
 	log.Info("sso-service stopped")
 }
 

@@ -2,7 +2,9 @@ package auth
 
 import (
 	"context"
+	"diaryhub/sso-service/internal/services/auth"
 	authv1 "diaryhub/sso-service/protos/gen/go/auth"
+	"errors"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -62,7 +64,9 @@ func (s *serverAPI) Register(
 
 	userId, err := s.auth.RegisterNewUser(ctx, req.GetEmail(), req.GetPassword())
 	if err != nil {
-		// TODO: expected errors
+		if errors.Is(err, auth.ErrUserExists) {
+			return nil, status.Error(codes.InvalidArgument, "user already exists")
+		}
 		return nil, status.Error(codes.Internal, "internal server error")
 	}
 
