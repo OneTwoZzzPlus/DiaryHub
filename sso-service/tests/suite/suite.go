@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"diaryhub/sso-service/internal/config"
-	ssov1 "diaryhub/sso-service/protos/gen/go/auth"
+	ssov1 "diaryhub/sso-service/protos/gen/auth"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

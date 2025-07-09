@@ -18,7 +18,7 @@
 - gRPC server *app*
 - storage *app*
 
-Отдельный запуск sso-service (необходима запущенная БД)
+Отдельный запуск sso-service (необходима запущенная БД).
 ```powershell
 cd ./sso-service
 $env:CONFIG_PATH="./config/local.yml
@@ -26,24 +26,14 @@ go run .
 ```
 
 ## frontend
-На текущей стадии это простейший скрипт GRPC клиента.
+На текущей стадии это простейший скрипт GRPC-web клиента.
 ```powershell
 cd ./frontend
 npm client.js
 ```
 
-
-
-## PROTOBUF автогенерация (gRPC)
-Для sso-service
+## protos
+Автогенерация PROTOBUF файлов.
 ```powershell
-cd ./sso-service/protos
-protoc -I proto ./proto/auth/auth.proto --go_out=./gen/go --go_opt=paths=source_relative --go-grpc_out=./gen/go --go-grpc_opt=paths=source_relative
+./protos/generate.ps1
 ```
-
-Для frontend
-```powershell
-cd ./frontend/protos
-protoc -I proto ./proto/auth/auth.proto --js_out=import_style=commonjs:./gen --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./gen
-```
-

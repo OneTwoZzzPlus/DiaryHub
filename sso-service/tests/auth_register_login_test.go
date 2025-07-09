@@ -1,7 +1,7 @@
 package tests
 
 import (
-	ssov1 "diaryhub/sso-service/protos/gen/go/auth"
+	ssov1 "diaryhub/sso-service/protos/gen/auth"
 	"diaryhub/sso-service/tests/suite"
 	"testing"
 	"time"
