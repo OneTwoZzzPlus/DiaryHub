@@ -23,7 +23,7 @@
       "problemMatcher": []
     },
     {
-      "label": "storage: up",
+      "label": "up storage",
       "type": "shell",
       "command": "docker compose -f 'docker-compose.yml' up -d --build 'db'",
       "presentation": {
@@ -33,7 +33,7 @@
       "problemMatcher": []
     },
     {
-      "label": "run: sso-service",
+      "label": "run sso-service",
       "type": "shell",
       "command": "go run .",
       "options": {
@@ -47,18 +47,6 @@
         "panel": "new"
       },
       "problemMatcher": []
-    },
-    {
-      "label": "generate: protobuf",
-      "type": "shell",
-      "command": "protoc -I proto ./proto/auth/auth.proto --go_out=./gen/go --go_opt=paths=source_relative --go-grpc_out=./gen/go --go-grpc_opt=paths=source_relative",
-      "options": {
-        "cwd": "${workspaceFolder}/sso-service/protos"
-      },
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      }
     }
   ]
 }

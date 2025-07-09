@@ -1,13 +1,4 @@
 services:
-  sso-service:
-    build: ./sso-service
-    environment:
-      CONFIG_PATH: "/app/config/dev.yml"
-    ports:
-      - "8080:8080"
-    depends_on:
-      db:
-        condition: service_healthy
   db:
     image: postgres:15
     environment:
@@ -23,5 +14,24 @@ services:
       interval: 2s
       timeout: 5s
       retries: 10
+  sso-service:
+    build: ./sso-service
+    environment:
+      CONFIG_PATH: "/app/config/dev.yml"
+    ports:
+      - "9090:9090"
+    depends_on:
+      db:
+        condition: service_healthy
+  envoy-proxy:
+    image: envoyproxy/envoy:v1.29-latest
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    command: ["envoy", "-c", "/etc/envoy/envoy.yaml", "--log-level", "warning"]
+    depends_on:
+      - sso-service
 volumes:
   pgdata:

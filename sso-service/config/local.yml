@@ -2,4 +2,5 @@ env: "local" # local/dev/prod
 storage_path: "host=localhost port=5432 user=admin password=admin dbname=postgres sslmode=disable"
 token_ttl: 
 grpc:
-  port: 8080
+  timeout: 30s
+  port: 9090
