@@ -29,7 +29,7 @@ go run .
 На текущей стадии это простейший скрипт GRPC-web клиента.
 ```powershell
 cd ./frontend
-npm client.js
+node client.js
 ```
 
 ## protos
