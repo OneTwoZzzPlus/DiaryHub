@@ -59,7 +59,7 @@
       "problemMatcher": []
     },
     {
-      "label": "go run frontend",
+      "label": "npm run frontend",
       "type": "shell",
       "command": "npm run start",
       "options": {
