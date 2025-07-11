@@ -26,10 +26,12 @@ go run .
 ```
 
 ## frontend
-На текущей стадии это простейший скрипт GRPC-web клиента.
+Простая страница с формами ввода и кнопками, отправляющими запросы GRPC-web клиента.
+
+Запуск frontend
 ```powershell
 cd ./frontend
-node client.js
+npm run start
 ```
 
 ## protos
