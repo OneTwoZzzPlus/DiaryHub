@@ -23,7 +23,7 @@
       "problemMatcher": []
     },
     {
-      "label": "up storage",
+      "label": "background: storage",
       "type": "shell",
       "command": "docker compose -f 'docker-compose.yml' up -d --build 'db'",
       "presentation": {
@@ -33,7 +33,17 @@
       "problemMatcher": []
     },
     {
-      "label": "run sso-service",
+      "label": "run: envoy-proxy",
+      "type": "shell",
+      "command": "docker compose -f 'docker-compose.yml' up --build 'envoy-proxy'",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "go run sso-service",
       "type": "shell",
       "command": "go run .",
       "options": {
@@ -41,6 +51,19 @@
         "env": {
           "CONFIG_PATH": "${workspaceFolder}/sso-service/config/local.yml"
         }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "go run frontend",
+      "type": "shell",
+      "command": "npm run start",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend",
       },
       "presentation": {
         "reveal": "always",

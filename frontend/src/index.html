@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Auth client</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 20px auto; }
+        .block { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        input, button { display: block; margin-bottom: 10px; padding: 8px; width: 100%; box-sizing: border-box; }
+        .result { min-height: 20px; padding: 8px; background-color: #f5f5f5; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <!-- Блок регистрации -->
+    <div class="block">
+        <h3>Регистрация</h3>
+        <input type="email" id="regEmail" placeholder="Email">
+        <input type="password" id="regPassword" placeholder="Password">
+        <button id="registerBtn">Регистрация</button>
+        <div class="result" id="registerResult"></div>
+    </div>
+
+    <!-- Блок входа -->
+    <div class="block">
+        <h3>Вход</h3>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button id="loginBtn">Войти</button>
+        <div class="result" id="loginResult"></div>
+    </div>
+
+    <!-- Блок проверки админа -->
+    <div class="block">
+        <h3>Проверка администратора</h3>
+        <input type="text" id="adminUserId" placeholder="User ID">
+        <button id="adminCheckBtn">Проверить</button>
+        <div class="result" id="adminResult"></div>
+    </div>
+
+    <!-- <script type="module" src="bundle.js"></script> -->
+</body>
+</html>

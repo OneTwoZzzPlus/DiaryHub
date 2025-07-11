@@ -9,8 +9,8 @@
 |     Имя     | Технология | Источник  | Описание |
 | ----------- | ---------- | --------- | -------- |
 | db          | PostgreSQL | DockerHub | Хранилище - реляционная база данных
+| envoy-proxy | Envoy      | DockerHub | GRPC-web адаптер и API gateway
 | sso-service | Go         | self      | Сервис для регистрации, авторизации и управления правами
-| envoy-proxy | proxy      | DockerHub | GRPC-web адаптер
 | frontend    | JavaScript | self      | Интерфейс пользователей
 
 ## sso-service
