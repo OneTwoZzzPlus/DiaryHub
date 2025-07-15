@@ -15,9 +15,9 @@ module.exports = {
     port: 80,
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-    }),
+    new HtmlWebpackPlugin({template: './public/index.html'}),
+    new HtmlWebpackPlugin({filename: "login", template: './public/login.html'}),
+    new HtmlWebpackPlugin({filename: "register", template: './public/register.html'}),
   ],
   module: {
     rules: [
