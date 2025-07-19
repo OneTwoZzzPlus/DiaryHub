@@ -65,7 +65,7 @@ static_resources:
                         - match: 
                             prefix: "/"
                           route: 
-                            cluster: sso-service                
+                            cluster: sso-service
   clusters:
     - name: sso-service
       connect_timeout: 1s

@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "webpack serve",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "execute": "webpack && node build/app.bundle.js"
   },
   "dependencies": {
     "@babel/preset-env": "^7.28.0",

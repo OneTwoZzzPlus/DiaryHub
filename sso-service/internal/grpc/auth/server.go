@@ -6,6 +6,8 @@ import (
 	authv1 "diaryhub/sso-service/protos/gen/auth"
 	"errors"
 
+	"net/mail"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -49,8 +51,8 @@ func (s *serverAPI) Login(
 		if errors.Is(err, auth.ErrInvalidCredential) {
 			return nil, status.Error(codes.InvalidArgument, "invalid credentials")
 		}
-		return nil, status.Error(codes.Internal, err.Error())
-		// return nil, status.Error(codes.Internal, "internal server error")
+		// return nil, status.Error(codes.Internal, err.Error())
+		return nil, status.Error(codes.Internal, "internal server error")
 	}
 
 	return &authv1.LoginResponse{Token: token}, nil
@@ -63,6 +65,9 @@ func (s *serverAPI) Register(
 	// TODO: validator
 	if req.GetEmail() == "" {
 		return nil, status.Error(codes.InvalidArgument, "email is required")
+	}
+	if _, err := mail.ParseAddress(req.GetEmail()); err != nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid email")
 	}
 	if req.GetPassword() == "" {
 		return nil, status.Error(codes.InvalidArgument, "password is required")

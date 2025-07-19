@@ -23,9 +23,9 @@
       "problemMatcher": []
     },
     {
-      "label": "background: storage",
+      "label": "restart: db",
       "type": "shell",
-      "command": "docker compose -f 'docker-compose.yml' up -d --build 'db'",
+      "command": "docker-compose up -d --no-deps --build 'db'",
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -33,9 +33,29 @@
       "problemMatcher": []
     },
     {
-      "label": "run: envoy-proxy",
+      "label": "restart: envoy-proxy",
       "type": "shell",
-      "command": "docker compose -f 'docker-compose.yml' up --build 'envoy-proxy'",
+      "command": "docker-compose up -d --no-deps --build 'envoy-proxy'",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "restart: sso-service",
+      "type": "shell",
+      "command": "docker-compose up -d --no-deps --build 'sso-service'",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "restart: frontend",
+      "type": "shell",
+      "command": "docker-compose up -d --no-deps --build 'frontend'",
       "presentation": {
         "reveal": "always",
         "panel": "new"

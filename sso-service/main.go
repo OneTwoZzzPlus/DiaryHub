@@ -18,7 +18,17 @@ func main() {
 	log.Info("Starting sso-service", slog.String("env", cfg.Env))
 	log.Debug("Debug messages enabled")
 
-	application := app.New(log, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTTL)
+	application := app.New(
+		log,
+		cfg.GRPC.Port,
+		cfg.StoragePath,
+		cfg.TokenTTL,
+		cfg.SMTP.Addr,
+		cfg.SMTP.Host,
+		cfg.SMTP.Sender,
+		cfg.SMTP.Username,
+		cfg.SMTP.Password,
+	)
 
 	go application.GRPCApp.MustRun()
 

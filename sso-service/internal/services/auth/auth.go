@@ -15,10 +15,11 @@ import (
 
 type Auth struct {
 	log          *slog.Logger
+	tokenTTL     time.Duration
 	userSaver    UserSaver
 	userProvider UserProvider
 	appProvider  AppProvider
-	tokenTTL     time.Duration
+	mailProvider MailProvider
 }
 
 type UserSaver interface {
@@ -34,6 +35,10 @@ type AppProvider interface {
 	App(ctx context.Context, appID int) (models.App, error)
 }
 
+type MailProvider interface {
+	Send(to string, access string) error
+}
+
 var (
 	ErrInvalidCredential = errors.New("invalid credentials")
 	ErrUserAlreadyExists = errors.New("user already exists")
@@ -42,17 +47,19 @@ var (
 
 // New returns a new instance of the Auth service
 func New(log *slog.Logger,
+	tokenTTL time.Duration,
 	userSaver UserSaver,
 	userProvider UserProvider,
 	appProvider AppProvider,
-	tokenTTL time.Duration,
+	mailProvider MailProvider,
 ) *Auth {
 	return &Auth{
 		log:          log,
+		tokenTTL:     tokenTTL,
 		userSaver:    userSaver,
 		userProvider: userProvider,
 		appProvider:  appProvider,
-		tokenTTL:     tokenTTL,
+		mailProvider: mailProvider,
 	}
 }
 
@@ -145,6 +152,13 @@ func (a *Auth) RegisterNewUser(
 	}
 
 	log.Info("User registered")
+
+	if err := a.mailProvider.Send(email, "empty"); err != nil {
+		log.Error("Failed to send email", slog.String("error", err.Error()))
+	}
+
+	log.Info("Email sent")
+
 	return id, nil
 }
 

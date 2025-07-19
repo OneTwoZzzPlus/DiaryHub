@@ -13,11 +13,20 @@ type Config struct {
 	StoragePath string        `yaml:"storage_path" env:"STORAGE_PATH" env-default:"host=localhost port=5432 user=admin password=admin dbname=postgres sslmode=disable"`
 	TokenTTL    time.Duration `yaml:"token_ttl" env:"TOKEN_TTL" env-default:"60m"`
 	GRPC        `yaml:"grpc"`
+	SMTP        `yaml:"smtp"`
 }
 
 type GRPC struct {
 	Port    int           `yaml:"port" env:"GRPC_PORT" env-default:"8888"`
 	Timeout time.Duration `yaml:"timeout" env:"GRPC_TIMEOUT" env-default:"60s"`
+}
+
+type SMTP struct {
+	Host     string `yaml:"host"     env:"SMTP_HOST"`
+	Addr     string `yaml:"addr"     env:"SMTP_ADDR"`
+	Username string `yaml:"username" env:"SMTP_USERNAME"`
+	Password string `yaml:"password" env:"SMTP_PASSWORD"`
+	Sender   string `yaml:"sender"   env:"SMTP_SENDER"`
 }
 
 func MustLoad() *Config {
