@@ -3,6 +3,7 @@ package app
 import (
 	emailapp "diaryhub/sso-service/internal/app/email"
 	grpcapp "diaryhub/sso-service/internal/app/grpc"
+	restapp "diaryhub/sso-service/internal/app/rest"
 	storageapp "diaryhub/sso-service/internal/app/storage"
 	authservice "diaryhub/sso-service/internal/services/auth"
 	"log/slog"
@@ -11,6 +12,7 @@ import (
 
 type App struct {
 	GRPCApp     *grpcapp.App
+	RESTApp     *restapp.App
 	AuthService *authservice.Auth
 	StorageApp  *storageapp.App
 	EmailApp    *emailapp.App
@@ -48,12 +50,21 @@ func New(
 		EmailApp.EmailSender,
 	)
 
+	RESTApp := restapp.New(log, "9090", "7070")
+
 	GRPCApp := grpcapp.New(log, grpcPort, AuthService)
 
-	return &App{GRPCApp: GRPCApp, AuthService: AuthService, StorageApp: StorageApp, EmailApp: EmailApp}
+	return &App{
+		GRPCApp:     GRPCApp,
+		RESTApp:     RESTApp,
+		AuthService: AuthService,
+		StorageApp:  StorageApp,
+		EmailApp:    EmailApp,
+	}
 }
 
 func (a *App) Stop() {
 	a.GRPCApp.Stop()
+	a.RESTApp.Stop()
 	a.StorageApp.Disconnect()
 }

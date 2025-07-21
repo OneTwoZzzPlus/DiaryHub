@@ -4,20 +4,34 @@ package auth;
 
 option go_package = "diaryhub.sso-service.v1;ssov1";
 
+import "google/api/annotations.proto";
+
 service Auth {
-    rpc Register (RegisterRequest) returns (RegisterResponse);
-    rpc Login (LoginRequest) returns (LoginResponse);
-    rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+    rpc Login (LoginRequest) returns (LoginResponse) {
+        option (google.api.http) = {
+            post: "/login"
+            body: "*"
+        };
+    };
+    rpc Register (RegisterRequest) returns (RegisterResponse) {
+        option (google.api.http) = {
+            post: "/register"
+            body: "*"
+        };
+    };
+    rpc Confirm (ConfirmRequest) returns (ConfirmResponse) {
+        option (google.api.http) = {
+            post: "/confirm"
+            body: "*"
+        };
+    };
+    rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse) {
+        option (google.api.http) = {
+            post: "/isAdmin"
+            body: "*"
+        };
+    };
 }
-
-message RegisterRequest {
-    string email = 1;
-    string password = 2;
-}
-
-message RegisterResponse {
-    int64 user_id = 1;
-} 
 
 message LoginRequest {
     string email = 1;
@@ -28,6 +42,23 @@ message LoginRequest {
 message LoginResponse {
     string token = 1;
 } 
+
+message RegisterRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message RegisterResponse {
+    int64 user_id = 1;
+} 
+
+message ConfirmRequest {
+    int32 code = 1;
+}
+
+message ConfirmResponse {
+    bool ok = 1;
+}
 
 message IsAdminRequest {
     int64 user_id = 1;

@@ -9,5 +9,5 @@ env.bak/
 venv.bak/
 
 # Secret
-./sso-service/config/dev.yml
-./sso-service/config/local.yml
+sso-service/config/dev.yml
+sso-service/config/local.yml

@@ -28,7 +28,8 @@
       "command": "docker-compose up -d --no-deps --build 'db'",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "new",
+        "close": true
       },
       "problemMatcher": []
     },
@@ -38,7 +39,8 @@
       "command": "docker-compose up -d --no-deps --build 'envoy-proxy'",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "new",
+        "close": true
       },
       "problemMatcher": []
     },
@@ -48,7 +50,8 @@
       "command": "docker-compose up -d --no-deps --build 'sso-service'",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "new",
+        "close": true
       },
       "problemMatcher": []
     },
@@ -58,7 +61,8 @@
       "command": "docker-compose up -d --no-deps --build 'frontend'",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "new",
+        "close": true
       },
       "problemMatcher": []
     },

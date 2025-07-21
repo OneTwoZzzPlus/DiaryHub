@@ -20,6 +20,7 @@ services:
       CONFIG_PATH: "/app/config/dev.yml"
     ports:
       - "9090:9090"
+      - "7070:7070"
     depends_on:
       db:
         condition: service_healthy

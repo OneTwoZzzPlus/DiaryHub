@@ -19,6 +19,8 @@
 const grpc = {};
 grpc.web = require('grpc-web');
 
+
+// var google_api_annotations_pb = require('../google/api/annotations_pb.js')
 const proto = {};
 proto.auth = require('./auth_pb.js');
 
@@ -71,6 +73,67 @@ proto.auth.AuthPromiseClient =
    */
   this.hostname_ = hostname.replace(/\/+$/, '');
 
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.auth.LoginRequest,
+ *   !proto.auth.LoginResponse>}
+ */
+const methodDescriptor_Auth_Login = new grpc.web.MethodDescriptor(
+  '/auth.Auth/Login',
+  grpc.web.MethodType.UNARY,
+  proto.auth.LoginRequest,
+  proto.auth.LoginResponse,
+  /**
+   * @param {!proto.auth.LoginRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.auth.LoginResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.auth.LoginRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.auth.LoginResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.auth.LoginResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.auth.AuthClient.prototype.login =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/auth.Auth/Login',
+      request,
+      metadata || {},
+      methodDescriptor_Auth_Login,
+      callback);
+};
+
+
+/**
+ * @param {!proto.auth.LoginRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.auth.LoginResponse>}
+ *     Promise that resolves to the response
+ */
+proto.auth.AuthPromiseClient.prototype.login =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/auth.Auth/Login',
+      request,
+      metadata || {},
+      methodDescriptor_Auth_Login);
 };
 
 
@@ -138,61 +201,61 @@ proto.auth.AuthPromiseClient.prototype.register =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.auth.LoginRequest,
- *   !proto.auth.LoginResponse>}
+ *   !proto.auth.ConfirmRequest,
+ *   !proto.auth.ConfirmResponse>}
  */
-const methodDescriptor_Auth_Login = new grpc.web.MethodDescriptor(
-  '/auth.Auth/Login',
+const methodDescriptor_Auth_Confirm = new grpc.web.MethodDescriptor(
+  '/auth.Auth/Confirm',
   grpc.web.MethodType.UNARY,
-  proto.auth.LoginRequest,
-  proto.auth.LoginResponse,
+  proto.auth.ConfirmRequest,
+  proto.auth.ConfirmResponse,
   /**
-   * @param {!proto.auth.LoginRequest} request
+   * @param {!proto.auth.ConfirmRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.auth.LoginResponse.deserializeBinary
+  proto.auth.ConfirmResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.auth.LoginRequest} request The
+ * @param {!proto.auth.ConfirmRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.auth.LoginResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.auth.ConfirmResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.auth.LoginResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.auth.ConfirmResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.auth.AuthClient.prototype.login =
+proto.auth.AuthClient.prototype.confirm =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/auth.Auth/Login',
+      '/auth.Auth/Confirm',
       request,
       metadata || {},
-      methodDescriptor_Auth_Login,
+      methodDescriptor_Auth_Confirm,
       callback);
 };
 
 
 /**
- * @param {!proto.auth.LoginRequest} request The
+ * @param {!proto.auth.ConfirmRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.auth.LoginResponse>}
+ * @return {!Promise<!proto.auth.ConfirmResponse>}
  *     Promise that resolves to the response
  */
-proto.auth.AuthPromiseClient.prototype.login =
+proto.auth.AuthPromiseClient.prototype.confirm =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/auth.Auth/Login',
+      '/auth.Auth/Confirm',
       request,
       metadata || {},
-      methodDescriptor_Auth_Login);
+      methodDescriptor_Auth_Confirm);
 };
 
 

@@ -30,6 +30,7 @@ func main() {
 		cfg.SMTP.Password,
 	)
 
+	go application.RESTApp.Run()
 	go application.GRPCApp.MustRun()
 
 	stop := make(chan os.Signal, 1)

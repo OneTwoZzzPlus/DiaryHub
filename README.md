@@ -18,7 +18,7 @@
 - gRPC server *app*
 - storage *app*
 
-Отдельный запуск sso-service (необходима запущенная БД).
+Запуск sso-service (необходима запущенная БД).
 ```powershell
 cd ./sso-service
 $env:CONFIG_PATH="./config/local.yml
@@ -26,7 +26,7 @@ go run .
 ```
 
 ## frontend
-Простая страница с формами ввода и кнопками, отправляющими запросы GRPC-web клиента.
+Простая страницы с формами ввода и кнопками, отправляющими запросы GRPC-web клиента.
 
 Запуск frontend
 ```powershell
@@ -39,3 +39,8 @@ npm run start
 ```powershell
 ./protos/generate.ps1
 ```
+
+## TODO
+- Create REST proxy and delete envoy
+- Add confirmation of mail
+- ...
