@@ -9,13 +9,16 @@
 |     Имя     | Технология | Источник  | Описание |
 | ----------- | ---------- | --------- | -------- |
 | db          | PostgreSQL | DockerHub | Хранилище - реляционная база данных
-| envoy-proxy | Envoy      | DockerHub | GRPC-web адаптер и API gateway
 | sso-service | Go         | self      | Сервис для регистрации, авторизации и управления правами
-| frontend    | JavaScript | self      | Интерфейс пользователей
+| front       | TS Next.js | self      | Интерфейс пользователей
 
 ## sso-service
+Сервис регистрации и авторизации.
+
 - auth *service*
 - gRPC server *app*
+- REST gateway *app*
+- email provider (smtp) *app*
 - storage *app*
 
 Запуск sso-service (необходима запущенная БД).
@@ -25,22 +28,24 @@ $env:CONFIG_PATH="./config/local.yml
 go run .
 ```
 
-## frontend
-Простая страницы с формами ввода и кнопками, отправляющими запросы GRPC-web клиента.
+## front
+Простые страницы с формами ввода и кнопками, отправляющими запросы GRPC-web клиента.
 
-Запуск frontend
+Запуск front веб-сервиса.ы
 ```powershell
-cd ./frontend
-npm run start
+cd ./front
+yarn dev
 ```
 
 ## protos
 Автогенерация PROTOBUF файлов.
 ```powershell
-./protos/generate.ps1
+cd ./protos
+./generate.ps1
 ```
 
 ## TODO
-- Create REST proxy and delete envoy
+- Create register page (front)
+- Update configs (sso-service)
 - Add confirmation of mail
 - ...

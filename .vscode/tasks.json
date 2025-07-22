@@ -47,7 +47,7 @@
     {
       "label": "restart: sso-service",
       "type": "shell",
-      "command": "docker-compose up -d --no-deps --build 'sso-service'",
+      "command": "docker-compose up --no-deps --build 'sso-service'",
       "presentation": {
         "reveal": "always",
         "panel": "new",
@@ -58,7 +58,7 @@
     {
       "label": "restart: frontend",
       "type": "shell",
-      "command": "docker-compose up -d --no-deps --build 'frontend'",
+      "command": "docker-compose up --no-deps --build 'frontend'",
       "presentation": {
         "reveal": "always",
         "panel": "new",

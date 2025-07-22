@@ -50,7 +50,7 @@ func New(
 		EmailApp.EmailSender,
 	)
 
-	RESTApp := restapp.New(log, "9090", "7070")
+	RESTApp := restapp.New(log, "9090", "7070", "*")
 
 	GRPCApp := grpcapp.New(log, grpcPort, AuthService)
 

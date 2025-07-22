@@ -9,7 +9,7 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-    healthcheck:  # Проверка готовности PostgreSQL
+    healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin -d postgres"]
       interval: 2s
       timeout: 5s
@@ -24,20 +24,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
-  envoy-proxy:
-    image: envoyproxy/envoy:v1.29-latest
-    volumes:
-      - ./envoy.yaml:/etc/envoy/envoy.yaml
+  front:
+    build: ./front
     ports:
-      - "8080:8080"
-      - "8081:8081"
-    command: ["envoy", "-c", "/etc/envoy/envoy.yaml", "--log-level", "warning"]
-  frontend:
-    image: nodejs-webpack-es6-image
-    build:
-      context: ./frontend/
-      dockerfile: Dockerfile
-    ports:
-      - 80:80
+      - 3000:3000
 volumes:
   pgdata:
