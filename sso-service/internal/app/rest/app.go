@@ -16,20 +16,20 @@ import (
 
 type App struct {
 	log      *slog.Logger
-	portGRPC string
-	portREST string
+	portGRPC int
+	portREST int
 	corsProp string
 	mux      http.Handler
 	cancel   context.CancelFunc
 }
 
-func New(log *slog.Logger, portGRPC string, portREST string, corsProp string) *App {
+func New(log *slog.Logger, portGRPC int, portREST int, corsProp string) *App {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	mux := runtime.NewServeMux()
 	muxCORS := cors(mux, corsProp)
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	err := authv1.RegisterAuthHandlerFromEndpoint(ctx, mux, "localhost:9090", opts)
+	err := authv1.RegisterAuthHandlerFromEndpoint(ctx, mux, fmt.Sprintf(":%v", portGRPC), opts)
 	if err != nil {
 		panic(err)
 	}
@@ -47,10 +47,10 @@ func New(log *slog.Logger, portGRPC string, portREST string, corsProp string) *A
 func (a *App) Run() {
 	const op = "app.rest.Run"
 	a.log.Info("Gateway server starting",
-		slog.String("rest_port", a.portREST),
-		slog.String("grpc_port", a.portGRPC))
+		slog.Int("rest_port", a.portREST),
+		slog.Int("grpc_port", a.portGRPC))
 
-	if err := http.ListenAndServe(fmt.Sprintf(":%s", a.portREST), a.mux); err != nil {
+	if err := http.ListenAndServe(fmt.Sprintf(":%v", a.portREST), a.mux); err != nil {
 		a.log.Error("Stopping gateway server", slog.String("op", op), slog.String("error", err.Error()))
 	}
 }

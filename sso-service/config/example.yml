@@ -1,12 +1,15 @@
-env: "local" # local/dev/prod
+env: "dev" # local/dev/prod
 storage_path: "host=db port=5432 user=admin password=admin dbname=postgres sslmode=disable"
-token_ttl: 
+token_ttl: 60m
 grpc:
-  timeout: 30s
   port: 9090
+  timeout: 30s
+rest:
+  port: 7070
+  cors: "*"
 smtp:
   host: "smtp.yandex.ru"
   addr: "smtp.yandex.ru:587"
   sender: "username@ya.ru"
   username: "username@ya.ru"
-  password: "***password***"
+  password: "password"

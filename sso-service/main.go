@@ -21,6 +21,8 @@ func main() {
 	application := app.New(
 		log,
 		cfg.GRPC.Port,
+		cfg.REST.Port,
+		cfg.REST.Cors,
 		cfg.StoragePath,
 		cfg.TokenTTL,
 		cfg.SMTP.Addr,

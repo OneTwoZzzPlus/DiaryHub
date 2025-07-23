@@ -8,19 +8,17 @@ export default function Home() {
   const [result, setResult] = useState<string>("");
 
   const handleLogin = () => {
-    // Получаем значения из полей ввода
+    setResult("Загрузка...");
     const email = (document.getElementById("loginEmail") as HTMLInputElement)?.value;
     const password = (document.getElementById("loginPassword") as HTMLInputElement)?.value;
 
-    // Формируем данные для запроса
     const postData = {
       email: email,
       password: password,
       appId: 1,
     };
 
-    // Отправляем запрос
-    fetch("http://localhost:7070/login", {
+    fetch("http://" + process.env.NEXT_PUBLIC_ADDRESS_AUTH + "/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(postData),

@@ -21,6 +21,8 @@ type App struct {
 func New(
 	log *slog.Logger,
 	grpcPort int,
+	restPort int,
+	cors string,
 	storagePath string,
 	tokenTTL time.Duration,
 	smtpAddr string,
@@ -50,7 +52,7 @@ func New(
 		EmailApp.EmailSender,
 	)
 
-	RESTApp := restapp.New(log, "9090", "7070", "*")
+	RESTApp := restapp.New(log, grpcPort, restPort, cors)
 
 	GRPCApp := grpcapp.New(log, grpcPort, AuthService)
 
