@@ -58,7 +58,7 @@
     {
       "label": "restart: frontend",
       "type": "shell",
-      "command": "docker-compose up --no-deps --build 'frontend'",
+      "command": "docker-compose up --no-deps --build 'front'",
       "presentation": {
         "reveal": "always",
         "panel": "new",

@@ -46,6 +46,6 @@ cd ./protos
 
 ## TODO
 - Create register page (front)
-- Update configs (sso-service)
+- Gorutine email
 - Add confirmation of mail
 - ...
